@@ -1,9 +1,8 @@
 import { Agent, ZeeWorkflow } from "@covalenthq/ai-agent-sdk";
-import { AgentModel } from "./agent";
 
 export interface WorkflowM {
     name: string;
-    workflows: ZeeWorkflow;
+    workflow: ZeeWorkflow;
 }
 export class WorkflowModel {
     private workflows: WorkflowM[] = [];
@@ -11,7 +10,7 @@ export class WorkflowModel {
         const workflow = new ZeeWorkflow({ description, output, agents });
         const workflowM: WorkflowM = {
             name,
-            workflows: workflow
+            workflow: workflow
         };
         this.workflows.push(workflowM);
         return workflowM;

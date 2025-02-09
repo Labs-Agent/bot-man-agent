@@ -1,5 +1,5 @@
 import { Agent, ModelConfig, Tool } from '@covalenthq/ai-agent-sdk';
-import { ToolModel } from './tool';
+
 export interface AgentM {
     name: string;
     agent: Agent;
