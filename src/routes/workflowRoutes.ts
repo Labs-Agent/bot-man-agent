@@ -12,5 +12,5 @@ export function setWorkflowRoutes(app: Application, workflowModel: WorkflowModel
     router.get('/', workflowController.getAvailableWorkflows.bind(workflowController));
     router.get('/:name', workflowController.getWorkflowByName.bind(workflowController));
     router.delete('/:name', workflowController.removeWorkflow.bind(workflowController));
-    router.post('/prompt', workflowController.postPrompt.bind(workflowController));
+    router.post('/prompt/:name', workflowController.postPrompt.bind(workflowController));
 }

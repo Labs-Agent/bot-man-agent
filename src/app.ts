@@ -94,34 +94,6 @@ loadAgents();
 
 setWorkflowRoutes(app, workflowModel, agentModel);
 
-app.get("/api/workflows/setup", (req, res) => {
-    try {
-        const id = req.query.id as string;
-        const workflowsFile = path.join(__dirname, "..", "DB", "workflows");
-        if (!fs.existsSync(workflowsFile)) {
-            return res.status(404).json({ error: "No workflows file found" });
-        }
-        const workflowsRaw = fs.readFileSync(workflowsFile, "utf-8");
-        const workflowsData = JSON.parse(workflowsRaw) as {
-            name: string;
-            description: string;
-            output: string;
-            agents: string[];
-        }[];
-
-        for (const { name, description, output, agents } of workflowsData) {
-            workflowModel.createWorkflow(name, description, output, {});
-        }
-
-        res.status(200).json({
-            message: "Workflows are set up",
-            promptUrl: "/api/workflows/prompt"
-        });
-    } catch (error) {
-        const errMsg = error instanceof Error ? error.message : "Failed to set up workflows";
-        res.status(500).json({ error: errMsg });
-    }
-});
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
