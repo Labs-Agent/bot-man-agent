@@ -3,6 +3,8 @@ import { StateFn } from "@covalenthq/ai-agent-sdk/dist/core/state";
 import { user } from "@covalenthq/ai-agent-sdk/dist/core/base";
 import { AgentModel } from "../models/agent";
 import { WorkflowModel, WorkflowM } from "../models/workflow";
+import fs from "fs";
+import path from "path";
 
 export class WorkflowService {
     private workflows: WorkflowModel;
@@ -12,27 +14,49 @@ export class WorkflowService {
         this.workflows = workflowModel;
         this.agents = agentModel;
     }
-    public createWorkflow(name: string, description: string, output: string, agentnames: string[]): WorkflowM {
-        const agents = agentnames.reduce((acc, agentname) => {
-            const agent = this.agents.findAgentByName(agentname);
-            if (!agent) {
-                throw new Error('Agent not found');
-            }
-            acc[agentname] = agent.agent;
-            return acc;
-        }, {} as Record<string, Agent>);
-        const newWorkflow = this.workflows.createWorkflow(name, description, output, agents);
-        return newWorkflow;
+    public createWorkflow(name: string): WorkflowM {
+        console.log('Creating workflow', name);
+        const workflowpath = path.join(__dirname, "..", "DB", "workflows", name + ".json");
+        if (!fs.existsSync(workflowpath)) {
+            throw new Error('Workflow not found');
+        }
+        const workflowRaw = fs.readFileSync(workflowpath, "utf-8");
+        const workflowData = JSON.parse(workflowRaw) as {
+            description: string;
+            output: string;
+            agents: string[];
+        };
+        const agents =
+            workflowData.agents.reduce((acc: Record<string, Agent>, agentName: string) => {
+                console.log('agentName', agentName);
+                console.log('this.agents', this.agents);
+                const agentM = this.agents.findAgentByName(agentName);
+                console.log('agentM', agentM);
+                if (agentM) {
+                    acc[agentName] = agentM.agent;
+                }
+                return acc;
+            }, {});
+        console.log('agents', agents);
+        const workflow = this.workflows.createWorkflow(name, workflowData.description, workflowData.output, agents);
+        return workflow;
+
     }
 
     public getAvailableWorkflows(): WorkflowM[] {
         return this.workflows.getAvailableWorkflows();
     }
+
     public getWorkflowByName(workflowname: string): WorkflowM | undefined {
         return this.workflows.getWorkflowByName(workflowname);
     }
+
+    public removeWorkflow(name: string): boolean {
+        return this.workflows.removeWorkflow(name);
+    }
     public async postPrompt(name: string, prompt: string): Promise<string> {
         const workflow = this.workflows.getWorkflowByName(name);
+        console.log('workflow', workflow);
         if (!workflow) {
             throw new Error('Workflow not found');
         }
