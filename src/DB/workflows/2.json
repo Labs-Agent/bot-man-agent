@@ -1,0 +1,7 @@
+{
+    "description": "Summaries the content",
+    "output": "A summary of the content",
+    "agents": [
+        "Summary Agent"
+    ]
+}

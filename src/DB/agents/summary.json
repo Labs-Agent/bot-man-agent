@@ -1,0 +1,14 @@
+{
+    "name": "Summary Agent",
+    "model": {
+        "provider": "OPEN_AI",
+        "name": "gpt-4o-mini"
+    },
+    "description": "An AI writer that creates concise summaries from research analysis.",
+    "instructions": [
+        "Review the research analysis provided",
+        "Create a clear and concise summary",
+        "Highlight the most important points",
+        "Use bullet points for key takeaways"
+    ]
+}

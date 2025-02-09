@@ -1,0 +1,7 @@
+{
+    "description": "Analyze latest technology news",
+    "output": "Get lastest technology news",
+    "agents": [
+        "Research Agent"
+    ]
+}

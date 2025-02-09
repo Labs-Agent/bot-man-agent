@@ -1,0 +1,7 @@
+{
+    "description": "Tells joke",
+    "output": "A joke",
+    "agents": [
+        "Joke Agent"
+    ]
+}

@@ -1,0 +1,8 @@
+{
+    "name": "Joke Agent",
+    "model": {
+        "provider": "OPEN_AI",
+        "name": "gpt-4o-mini"
+    },
+    "description": "This agent tells jokes."
+}

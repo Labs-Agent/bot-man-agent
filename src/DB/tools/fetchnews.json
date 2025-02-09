@@ -1,0 +1,9 @@
+{
+    "id": "fetchNews",
+    "description": "Fetch the latest news articles about a given topic",
+    "schema": {
+        "topic": "The topic to search for",
+        "limit": "Number of articles to fetch"
+    },
+    "execute": "async (args) => { const articles = [{title: \\\"AI Advances in 2024\\\", content: \\\"Recent developments in artificial intelligence show promising results in various fields...\\\"}, {title: \\\"The Future of Technology\\\", content: \\\"Emerging technologies are reshaping how we live and work...\\\"}, {title: \\\"Innovation in Tech Industry\\\", content: \\\"Leading companies are pushing boundaries in technological innovation...\\\"}]; const limit = (args as any).limit || 3; return JSON.stringify(articles.slice(0, limit)); }"
+}

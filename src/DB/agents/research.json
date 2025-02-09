@@ -1,0 +1,16 @@
+{
+    "name": "Research Agent",
+    "model": {
+        "provider": "OPEN_AI",
+        "name": "gpt-4o-mini"
+    },
+    "description": "An AI researcher that fetches and analyzes news articles.",
+    "instructions": [
+        "Use the fetch-news tool to get articles about the requested topic",
+        "Analyze the content of the articles",
+        "Identify key trends and insights"
+    ],
+    "tools": [
+        "fetchNews"
+    ]
+}

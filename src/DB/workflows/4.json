@@ -1,0 +1,8 @@
+{
+    "description": "Analyze latest technology news and create a summary report",
+    "output": "A comprehensive summary of technology news trends",
+    "agents": [
+        "Research Agent",
+        "Summary Agent"
+    ]
+}
