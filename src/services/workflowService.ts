@@ -1,6 +1,8 @@
+import { Agent, ZeeWorkflow } from "@covalenthq/ai-agent-sdk";
+import { StateFn } from "@covalenthq/ai-agent-sdk/dist/core/state";
+import { user } from "@covalenthq/ai-agent-sdk/dist/core/base";
 import { AgentModel } from "../models/agent";
 import { WorkflowModel, WorkflowM } from "../models/workflow";
-import { Agent } from "@covalenthq/ai-agent-sdk";
 
 export class WorkflowService {
     private workflows: WorkflowModel;
@@ -29,11 +31,18 @@ export class WorkflowService {
     public getWorkflowByName(workflowname: string): WorkflowM | undefined {
         return this.workflows.getWorkflowByName(workflowname);
     }
-    public postPrompt(name: string, prompt: string): string {
+    public async postPrompt(name: string, prompt: string): Promise<string> {
         const workflow = this.workflows.getWorkflowByName(name);
         if (!workflow) {
             throw new Error('Workflow not found');
         }
-        return `Prompt ${prompt} posted to workflow ${workflow.name}`;
+
+        const initialState = StateFn.root(workflow.workflow.description);
+        initialState.messages.push(
+            user(prompt)
+        )
+        const result = await ZeeWorkflow.run(workflow.workflow, initialState);
+        const lastMessage = result.messages[result.messages.length - 1];
+        return typeof lastMessage.content === 'string' ? lastMessage.content : JSON.stringify(lastMessage.content);
     }
 }
