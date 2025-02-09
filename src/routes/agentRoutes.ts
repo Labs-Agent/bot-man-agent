@@ -12,6 +12,4 @@ export function setAgentRoutes(app: Application, agentModel: AgentModel, toolMod
     router.post('/', agentController.createAgent.bind(agentController));
     router.get('/', agentController.getAvailableAgents.bind(agentController));
     router.get('/:name', agentController.getAgentByName.bind(agentController));
-    router.post('/prompt', agentController.postPrompt.bind(agentController));
-
 }
