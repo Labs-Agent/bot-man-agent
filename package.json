@@ -1,5 +1,5 @@
 {
-  "name": "my-backend-app",
+  "name": "bot-man-agent",
   "version": "1.0.0",
   "description": "A backend server for managing agents and workflows.",
   "main": "src/app.ts",

@@ -21,10 +21,8 @@ This project is a TypeScript backend server that provides routes for managing ag
 ## Project Structure
 
 ```
-my-backend-app
+bot-man-agent
 ├── src
-│   ├── ai                   # Contains integrated agent and workflow definitions
-│   │   └── index.ts         # Defines Research Agent, Summary Agent, and ZeeWorkflow
 │   ├── controllers          # Contains controllers for handling requests
 │   │   ├── agentController.ts
 │   │   └── workflowController.ts
