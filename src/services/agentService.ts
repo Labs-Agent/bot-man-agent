@@ -31,13 +31,5 @@ export class AgentService {
     getAgentByName(name: string): AgentM | undefined {
         return this.agents.findAgentByName(name);
     }
-    postPrompt(agentname: string, prompt: string): string {
-        const agent = this.agents.findAgentByName(agentname);
-        if (!agent) {
-            throw new Error("Agent not found");
-        }
-        // Here you would add logic to process the prompt with the agent
-        return `Prompt sent to ${agent.name}: ${prompt}`;
-    }
 
 }

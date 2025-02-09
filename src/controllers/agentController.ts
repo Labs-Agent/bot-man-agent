@@ -41,14 +41,4 @@ export class AgentController {
             res.status(500).json({ message: errorMessage });
         }
     }
-    public postPrompt = async (req: Request, res: Response): Promise<void> => {
-        try {
-            const { agentname, prompt } = req.body;
-            const response = await this.agentService.postPrompt(agentname, prompt);
-            res.status(200).json(response);
-        } catch (error) {
-            const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
-            res.status(500).json({ message: errorMessage });
-        }
-    };
 }
