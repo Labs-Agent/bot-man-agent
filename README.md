@@ -68,18 +68,8 @@ npm start
 The server will be running on `http://localhost:3000`.
 
 ## API Endpoints
-- **Tools**
-   - `GET /api/tools` - Retrieve available tools
-   - `POST /api/tools` - Create a new tool
-   - `GET /api/tools/:id` - Retrieve a tool by ID
-- **Agents**
-  - `POST /api/agents` - Create a new agent
-  - `GET /api/agents` - Retrieve available agents
-  - `GET /api/agents/:name` - Retrieve an agent by name
-  - `POST /api/agents/prompt` - Post a prompt to an agent
-
 - **Workflows**
   - `POST /api/workflows` - Create a new workflow
   - `GET /api/workflows` - Retrieve available workflows
-   - `GET /api/workflows/:name` - Retrieve a workflow by name
-   - `POST /api/workflows/prompt` - Post a prompt to a workflow
+   - `DELETE /api/workflows/:name` - Remove a workflow by name
+   - `POST /api/workflows/prompt/:name` - Post a prompt to a workflow
