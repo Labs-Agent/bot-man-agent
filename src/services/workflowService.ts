@@ -15,7 +15,6 @@ export class WorkflowService {
         this.agents = agentModel;
     }
     public createWorkflow(name: string): WorkflowM {
-        console.log('Creating workflow', name);
         const workflowpath = path.join(__dirname, "..", "DB", "workflows", name + ".json");
         if (!fs.existsSync(workflowpath)) {
             throw new Error('Workflow not found');
@@ -28,16 +27,13 @@ export class WorkflowService {
         };
         const agents =
             workflowData.agents.reduce((acc: Record<string, Agent>, agentName: string) => {
-                console.log('agentName', agentName);
-                console.log('this.agents', this.agents);
+
                 const agentM = this.agents.findAgentByName(agentName);
-                console.log('agentM', agentM);
                 if (agentM) {
                     acc[agentName] = agentM.agent;
                 }
                 return acc;
             }, {});
-        console.log('agents', agents);
         const workflow = this.workflows.createWorkflow(name, workflowData.description, workflowData.output, agents);
         return workflow;
 
@@ -56,7 +52,6 @@ export class WorkflowService {
     }
     public async postPrompt(name: string, prompt: string): Promise<string> {
         const workflow = this.workflows.getWorkflowByName(name);
-        console.log('workflow', workflow);
         if (!workflow) {
             throw new Error('Workflow not found');
         }

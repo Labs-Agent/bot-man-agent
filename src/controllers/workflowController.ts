@@ -13,9 +13,8 @@ export class WorkflowController {
     public async createWorkflow(req: Request, res: Response): Promise<void> {
         try {
             const { name } = req.body;
-            console.log('workflow', name);
             const workflow = await this.workflowService.createWorkflow(name);
-            const url = { url: "http://localhost:3000/api/workflows/" + workflow.name }
+            const url = { url: "http://localhost:3000/api/workflows/prompt" }
             res.status(201).json(url);
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
@@ -63,7 +62,6 @@ export class WorkflowController {
     public async postPrompt(req: Request, res: Response): Promise<void> {
         try {
             const { name, prompt } = req.body;
-            console.log('prompt', name, prompt);
             if (!name || !prompt) {
                 res.status(400).json({ message: 'Missing required fields' });
                 return;
