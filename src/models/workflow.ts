@@ -24,4 +24,9 @@ export class WorkflowModel {
     getWorkflowByName(name: string): WorkflowM | undefined {
         return this.workflows.find(workflow => workflow.name === name);
     }
+    removeWorkflow(name: string): boolean {
+        const initialLength = this.workflows.length;
+        this.workflows = this.workflows.filter(w => w.name !== name);
+        return this.workflows.length < initialLength;
+    }
 }
