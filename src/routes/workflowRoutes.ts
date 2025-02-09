@@ -1,10 +1,11 @@
 import { Router, Application } from 'express';
 import { WorkflowController } from '../controllers/workflowController';
+import { WorkflowModel } from '../models/workflow';
+import { AgentModel } from '../models/agent';
 
-const router = Router();
-const workflowController = new WorkflowController();
-
-export function setWorkflowRoutes(app: Application) {
+export function setWorkflowRoutes(app: Application, workflowModel: WorkflowModel, agentModel: AgentModel) {
+    const router = Router();
+    const workflowController = new WorkflowController(workflowModel, agentModel);
     app.use('/api/workflows', router);
 
     router.post('/', workflowController.createWorkflow.bind(workflowController));
