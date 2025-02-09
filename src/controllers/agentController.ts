@@ -13,6 +13,10 @@ export class AgentController {
     public createAgent = async (req: Request, res: Response): Promise<void> => {
         try {
             const { name, description, modelconfig, instructions, toolnames } = req.body;
+            if (!name || !description || !modelconfig || !instructions || !toolnames) {
+                res.status(400).json({ message: 'Missing required fields' });
+                return;
+            }
             const newAgent = await this.agentService.createAgent(name, description, modelconfig, instructions, toolnames);
             res.status(201).json(newAgent);
         } catch (error) {
@@ -34,6 +38,10 @@ export class AgentController {
     public getAgentByName = async (req: Request, res: Response): Promise<void> => {
         try {
             const { name } = req.params;
+            if (!name) {
+                res.status(400).json({ message: 'Missing required fields' });
+                return;
+            }
             const agent = await this.agentService.getAgentByName(name);
             res.status(200).json(agent);
         } catch (error) {

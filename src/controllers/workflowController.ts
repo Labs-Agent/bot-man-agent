@@ -13,6 +13,10 @@ export class WorkflowController {
     public async createWorkflow(req: Request, res: Response): Promise<void> {
         try {
             const { name, description, output, agents } = req.body;
+            if (!name || !description || !output || !agents) {
+                res.status(400).json({ message: 'Missing required fields' });
+                return;
+            }
             const newWorkflow = await this.workflowService.createWorkflow(name, description, output, agents);
             res.status(201).json(newWorkflow);
         } catch (error) {
@@ -33,6 +37,10 @@ export class WorkflowController {
     public async getWorkflowByName(req: Request, res: Response): Promise<void> {
         try {
             const { name } = req.params;
+            if (!name) {
+                res.status(400).json({ message: 'Missing required fields' });
+                return;
+            }
             const workflow = await this.workflowService.getWorkflowByName(name);
             res.status(200).json(workflow);
         } catch (error) {
@@ -43,6 +51,10 @@ export class WorkflowController {
     public async postPrompt(req: Request, res: Response): Promise<void> {
         try {
             const { workflowname, prompt } = req.body;
+            if (!workflowname || !prompt) {
+                res.status(400).json({ message: 'Missing required fields' });
+                return;
+            }
             const response = await this.workflowService.postPrompt(workflowname, prompt);
             res.status(200).json(response);
         } catch (error) {

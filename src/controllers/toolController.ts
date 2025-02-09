@@ -12,6 +12,10 @@ export class ToolController {
     public async createTool(req: Request, res: Response): Promise<void> {
         try {
             const { name, description, schema, execute } = req.body;
+            if (!name || !description || !schema || !execute) {
+                res.status(400).json({ message: 'Missing required fields' });
+                return;
+            }
             const newTool = await this.toolService.createTool(name, description, schema, execute);
             res.status(201).json(newTool);
         } catch (error) {
