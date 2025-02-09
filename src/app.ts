@@ -92,6 +92,8 @@ app.use(express.json());
 loadTools();
 loadAgents();
 
+process.title = "bot-man-agent";
+
 setWorkflowRoutes(app, workflowModel, agentModel);
 
 

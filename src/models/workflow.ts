@@ -17,8 +17,12 @@ export class WorkflowModel {
     }
 
 
-    getAvailableWorkflows(): WorkflowM[] {
-        return this.workflows;
+    getAvailableWorkflows(): string[] {
+        let names: string[] = [];
+        this.workflows.forEach(workflow => {
+            names.push(workflow.name);
+        });
+        return names;
     }
 
     getWorkflowByName(name: string): WorkflowM | undefined {

@@ -39,7 +39,7 @@ export class WorkflowService {
 
     }
 
-    public getAvailableWorkflows(): WorkflowM[] {
+    public getAvailableWorkflows(): string[] {
         return this.workflows.getAvailableWorkflows();
     }
 
